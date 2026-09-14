@@ -7,6 +7,13 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   await connectDB();
 
+  app.get("/health", (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: "API is healthy",
+    });
+  });
+
   const server = app.listen(PORT, () => {
     console.log(`Smart-Inventory API Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
   });
