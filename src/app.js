@@ -43,6 +43,14 @@ if (process.env.NODE_ENV !== 'test') {
 app.use('/api/v1', apiRoutes);
 app.use('/api', apiRoutes);
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "API is healthy",
+  });
+});
+
 // Catch unhandled routes
 app.all('*', (req, res, next) => {
   next(new AppError(`Cannot find endpoint ${req.originalUrl} on this server`, 404, 'NOT_FOUND'));
